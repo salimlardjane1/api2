@@ -1,0 +1,169 @@
+swagger: "2.0"
+info:
+  description: Ceci est le fichier Swagger correspondant à notre code
+  version: "1.0.0"
+  title: API Rest
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Chemins
+paths:
+  /people:
+    get:
+      operationId: people.read_all
+      tags:
+        - People
+      summary: Lire tout l'annuaire, trié par nom de famille
+      description: Lire tout l'annuaire, trié par nom de famille
+      responses:
+        200:
+          description: Succès
+          schema:
+            type: array
+            items:
+              properties:
+                person_id:
+                  type: string
+                  description: Id d'une personne
+                fname:
+                  type: string
+                  description: Prénom d'une personne
+                lname:
+                  type: string
+                  description: Nom de famille d'une personne
+                timestamp:
+                  type: string
+                  description: Instant de Création/Mise à jour
+
+    post:
+      operationId: people.create
+      tags:
+        - People
+      summary: Créer une nouvelle personne
+      description: Créer une nouvelle personne
+      parameters:
+        - name: person
+          in: body
+          description: Personne à créer
+          required: True
+          schema:
+            type: object
+            properties:
+              fname:
+                type: string
+                description: Prénom de la personne à créer
+              lname:
+                type: string
+                description: Nom de famille de la personne à créer
+      responses:
+        201:
+          description: Succès
+          schema:
+            properties:
+              person_id:
+                type: string
+                description: Id de la personne
+              fname:
+                type: string
+                description: Prénom de la personne
+              lname:
+                type: string
+                description: Nom de famille de la personne
+              timestamp:
+                type: string
+                description: Instant de Création/Mise à jour
+
+  /people/{person_id}:
+    get:
+      operationId: people.read_one
+      tags:
+        - People
+      summary: Lire l'enregistrement d'une personne
+      description:  Lire l'enregistrement d'une personne
+      parameters:
+        - name: person_id
+          in: path
+          description: Id de la personne
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Succès
+          schema:
+            type: object
+            properties:
+              person_id:
+                type: string
+                description: Id de la personne
+              fname:
+                type: string
+                description: Prénom de la personne
+              lname:
+                type: string
+                description: Nom de famille de la personne
+              timestamp:
+                type: string
+                description: Instant de Création/Mise à jour
+
+    put:
+      operationId: people.update
+      tags:
+        - People
+      summary: Mise à jour de l'enregistrement d'une personne
+      description: Mise à jour de l'enregistrement d'une personne
+      parameters:
+        - name: person_id
+          in: path
+          description: Id de la personne
+          type: integer
+          required: True
+        - name: person
+          in: body
+          schema:
+            type: object
+            properties:
+              fname:
+                type: string
+                description: Prénom de la personne
+              lname:
+                type: string
+                description: Nom de famille de la personne
+      responses:
+        200:
+          description: Succès
+          schema:
+            properties:
+              person_id:
+                type: string
+                description: Id de la personne
+              fname:
+                type: string
+                description: Prénom de la personne
+              lname:
+                type: string
+                description: Nom de famille de la personne
+              timestamp:
+                type: string
+                description: Instant de Création/Mise à jour
+
+    delete:
+      operationId: people.delete
+      tags:
+        - People
+      summary: Supprimer une personne de l'annuaire
+      description: Supprimer une personne de l'annuaire
+      parameters:
+        - name: person_id
+          in: path
+          type: integer
+          description: Id de la personne à supprimer
+          required: true
+      responses:
+        200:
+          description: Succès
+
+
